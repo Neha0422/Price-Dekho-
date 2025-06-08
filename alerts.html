@@ -1,0 +1,63 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<div class="flex justify-center items-center min-h-screen bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 py-10 px-4">
+    <div class="bg-white rounded-3xl shadow-2xl p-8 w-full max-w-xl space-y-6">
+        <h2 class="text-3xl font-bold text-center text-gray-800">📢 Set Your Price Alert</h2>
+        <p class="text-center text-gray-600">Get notified when your favorite product drops in price!</p>
+
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <div class="p-4 mb-4 text-green-800 rounded-lg bg-green-100 border border-green-400">
+                <ul class="list-disc list-inside">
+                  {% for message in messages %}
+                    <li>{{ message }}</li>
+                  {% endfor %}
+                </ul>
+            </div>
+          {% endif %}
+        {% endwith %}
+
+        <form action="{{ url_for('alerts') }}" method="POST" class="space-y-4">
+            <div>
+                <label for="email" class="block text-sm font-medium text-gray-700">📧 Email Address</label>
+                <input type="email" id="email" name="email" required
+                       class="mt-1 block w-full px-4 py-2 rounded-xl border border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+            </div>
+
+            <div>
+                <label for="product" class="block text-sm font-medium text-gray-700">🛍️ Product Name</label>
+                <input type="text" id="product" name="product" required
+                       class="mt-1 block w-full px-4 py-2 rounded-xl border border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+            </div>
+
+            <div>
+                <label for="platform" class="block text-sm font-medium text-gray-700">Choose Platform</label>
+                <select id="platform" name="platform" required
+                    class="mt-1 block w-full pl-3 pr-10 py-2 rounded-xl border border-gray-300 shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
+                <option value="" disabled selected>Select a platform</option>
+                <option value="amazon">Amazon</option>
+                <option value="flipkart">Flipkart</option>
+                <option value="indiamart">IndiaMART</option>
+                <option value="bigbazar">BigBazar</option>
+                <option value="meesho">Meesho</option>
+                <option value="myntra">Myntra</option>
+                <option value="nykaa">Nykaa</option>
+                </select>
+            </div>
+
+            <div>
+                <label for="desired_price" class="block text-sm font-medium text-gray-700">💸 Desired Price (INR)</label>
+                <input type="number" id="desired_price" name="desired_price" required
+                       class="mt-1 block w-full px-4 py-2 rounded-xl border border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+            </div>
+
+            <button type="submit"
+                    class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded-xl transition duration-300 shadow-md">
+                🔔 Set Alert
+            </button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
